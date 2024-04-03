@@ -9,6 +9,9 @@ jobs :
     job-name :
         name : Mirror repository
         runs-on : ubuntu-latest
+        if: |
+            startsWith(github.ref, 'refs/heads/ga-ignore-') == false &&
+            github.repository != 'EpitechPromo2028/B-DOP-200-NCE-2-1-chocolatine-louis.malaval'
         steps :
             - uses : actions/checkout@v3
               with :
