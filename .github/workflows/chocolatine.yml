@@ -6,9 +6,32 @@ on :
 env :
   TARGET_REPO_URL : git@github.com:EpitechPromo2028/B-DOP-200-NCE-2-1-chocolatine-louis.malaval.git
 jobs :
-    job-name :
+    job-name1 :
+        name : check_coding_style
+        runs-on : ubuntu-latest
+        container : ghcr.io/epitech/coding-style-checker:latest
+        steps :
+            - run : coding-style . . --check
+    job_name2 :
+        name : check_program_compilation
+        runs-on : ubuntu-latest
+        container : epitechcontent/epitest-docker:latest
+        needs : job-name1
+        steps :
+            - uses : actions/checkout@v3
+            - run : make
+    job-name3 :
+        name : run_tests
+        runs-on : ubuntu-latest
+        container : epitechcontent/epitest-docker:latest
+        needs : job_name2
+        steps :
+            - uses : actions/checkout@v3
+            - run : make tests_run
+    job-name4 :
         name : Mirror repository
         runs-on : ubuntu-latest
+        needs : job-name3
         if: |
             startsWith(github.ref, 'refs/heads/ga-ignore-') == false &&
             github.repository != 'EpitechPromo2028/B-DOP-200-NCE-2-1-chocolatine-louis.malaval'
