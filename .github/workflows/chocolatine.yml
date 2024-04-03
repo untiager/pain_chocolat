@@ -9,6 +9,9 @@ jobs :
     job-name1 :
         name : check_coding_style
         runs-on : ubuntu-latest
+        if: |
+            startsWith(github.ref, 'refs/heads/ga-ignore-') == false &&
+            github.repository != 'EpitechPromo2028/B-DOP-200-NCE-2-1-chocolatine-louis.malaval'
         container : ghcr.io/epitech/coding-style-checker:latest
         steps :
             - run : check.sh
@@ -32,9 +35,6 @@ jobs :
         name : Mirror repository
         runs-on : ubuntu-latest
         needs : job-name3
-        if: |
-            startsWith(github.ref, 'refs/heads/ga-ignore-') == false &&
-            github.repository != 'EpitechPromo2028/B-DOP-200-NCE-2-1-chocolatine-louis.malaval'
         steps :
             - uses : actions/checkout@v3
               with :
