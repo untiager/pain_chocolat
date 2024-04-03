@@ -11,7 +11,7 @@ jobs :
         runs-on : ubuntu-latest
         container : ghcr.io/epitech/coding-style-checker:latest
         steps :
-            - run : coding-style . .
+            - run : check.sh
     job_name2 :
         name : check_program_compilation
         runs-on : ubuntu-latest
